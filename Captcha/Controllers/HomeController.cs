@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Dynamic;
+using System.Web.Mvc;
 using CaptchaMvc.Attributes;
 using CaptchaMvc.HtmlHelpers;
 
@@ -16,10 +18,6 @@ namespace Captcha.Controllers
         [CaptchaVerify("Captcha is not valid")]
         public ActionResult Index(string id)
         {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.ErrMessage = "Error: captcha is not valid.";
-            }
             return View();
         }
     }

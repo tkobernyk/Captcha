@@ -1,21 +1,45 @@
 ﻿@using CaptchaMvc.HtmlHelpers
+@model dynamic
 <!DOCTYPE html>
 
 <html>
 <head>
     <title>title</title>
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <style>
+        .field-validation-valid {
+            display: none;
+        }
+
+        .field-validation-error {
+            color: red;
+            display: inline;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        @using (Html.BeginForm())
+<div>
+    @using (Html.BeginForm())
     {
-        @Html.ValidationSummary(true)
-        @Html.Captcha("Refresh", "Type text from picture:", 5, "Is required field.", true).AsIntelligent()
-    <p class="Error">  @ViewBag.ErrMessage </p>
-
-    <input type="submit" value="Send">
-}
-    </div>
+        @Html.ValidationMessage("CaptchaInputText", String.Empty)
+        @Html.Captcha("Refresh", "Type text from picture:", 5, "Is required field.", true) //.AsIntelligent()
+        <input type="submit" value="Send">
+    }
+</div>
+<script>
+    $('form').validate({
+        rules: {
+            CaptchaInputText: {
+                required: true
+            }
+        },
+        messages: {
+            CaptchaInputText: {
+                required: "*"
+            }
+        }
+    });
+</script>
 </body>
 </html>
